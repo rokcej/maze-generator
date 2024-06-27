@@ -3,7 +3,7 @@
 #include "maze_generator.h"
 
 /**
- * Based on Prim's algorithm
+ * Prim's algorithm for finding a minimum spanning tree using random edge weights
  */
 class PrimMazeGenerator : public MazeGenerator {
 private:
