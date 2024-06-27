@@ -7,9 +7,14 @@
  */
 class PrimMazeGenerator : public MazeGenerator {
 private:
-	struct Candidate {
+	struct Edge {
+		bool operator<(const Edge& other) const {
+			return weight < other.weight;
+		};
+
 		int i_from;
 		int i_to;
+		float weight;
 	};
 
 public:

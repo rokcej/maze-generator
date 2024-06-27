@@ -2,6 +2,7 @@
 #include "src/util.h"
 #include <vector>
 #include <set>
+#include <queue>
 
 PrimMazeGenerator::PrimMazeGenerator(int width, int height)
 	: MazeGenerator(width, height) {
@@ -10,27 +11,26 @@ PrimMazeGenerator::PrimMazeGenerator(int width, int height)
 Maze PrimMazeGenerator::Generate() {
 	Maze maze(width_, height_);
 
-	const int i_root = util::GetRandom(maze.GetWidth() * maze.GetHeight() - 1);
-	std::set<int> connected = { i_root };
-	std::vector<Candidate> candidates;
+	const int i_root = util::GetRandomInt(maze.GetWidth() * maze.GetHeight() - 1);
+	std::set<int> tree = { i_root };
+	std::priority_queue<Edge> frontier;
 	for (const auto& i_neighbor : maze.GetNeighbors(i_root)) {
-		candidates.push_back({ i_root, i_neighbor });
+		frontier.push({ i_root, i_neighbor, util::GetRandomFloat() });
 	}
 
-	while (!candidates.empty()) {
-		const int i_candidate = util::GetRandom((int)candidates.size() - 1);
-		const auto candidate = candidates[i_candidate];
-		candidates.erase(candidates.begin() + i_candidate);
+	while (!frontier.empty()) {
+		const auto edge = frontier.top();
+		frontier.pop();
 
-		if (connected.find(candidate.i_to) != connected.end()) {
+		if (tree.find(edge.i_to) != tree.end()) {
 			continue;
 		}
-		connected.insert(candidate.i_to);
-		maze.SetPath(candidate.i_from, candidate.i_to, true);
+		tree.insert(edge.i_to);
+		maze.SetPath(edge.i_from, edge.i_to, true);
 
-		for (const auto& i_neighbor : maze.GetNeighbors(candidate.i_to)) {
-			if (connected.find(i_neighbor) == connected.end()) {
-				candidates.push_back({ candidate.i_to, i_neighbor });
+		for (const auto& i_neighbor : maze.GetNeighbors(edge.i_to)) {
+			if (tree.find(i_neighbor) == tree.end()) {
+				frontier.push({ edge.i_to, i_neighbor, util::GetRandomFloat() });
 			}
 		}
 	}
