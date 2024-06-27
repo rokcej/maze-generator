@@ -1,5 +1,6 @@
 #include "maze.h"
 #include "maze_generators/prim_maze_generator.h"
+#include "maze_generators/dfs_maze_generator.h"
 #include "raylib.h"
 
 void DrawMaze(const Maze& maze) {
@@ -48,7 +49,8 @@ int main() {
 	constexpr int maze_width = 16;
 	constexpr int maze_height = 16;
 
-	PrimMazeGenerator maze_generator(maze_width, maze_height);
+	// PrimMazeGenerator maze_generator(maze_width, maze_height);
+	DfsMazeGenerator maze_generator(maze_width, maze_height);
 	const Maze maze = maze_generator.Generate();
 
 	InitWindow(512, 512, "Maze Generator");
