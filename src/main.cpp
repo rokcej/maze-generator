@@ -19,6 +19,7 @@ void DrawMaze(const Maze& maze) {
 	const int cell_height = GetScreenHeight() / maze.GetHeight();
 	for (int y = 0; y < maze.GetHeight(); ++y) {
 		for (int x = 0; x < maze.GetWidth(); ++x) {
+			// The y axis should be flipped when drawing, but it's not necessary in this case
 			const auto& cell = maze.GetCell(y * maze.GetWidth() + x);
 
 			// Horizontal
@@ -50,10 +51,9 @@ int main() {
 	constexpr int maze_width = 16;
 	constexpr int maze_height = 16;
 
-	// PrimMazeGenerator maze_generator(maze_width, maze_height);
-	// DfsMazeGenerator maze_generator(maze_width, maze_height);
-	WilsonMazeGenerator maze_generator(maze_width, maze_height);
-	const Maze maze = maze_generator.Generate();
+	// const Maze maze = PrimMazeGenerator(maze_width, maze_height).Generate();
+	// const Maze maze = DfsMazeGenerator(maze_width, maze_height).Generate();
+	const Maze maze = WilsonMazeGenerator(maze_width, maze_height).Generate();
 
 	InitWindow(512, 512, "Maze Generator");
 	while (!WindowShouldClose()) {
