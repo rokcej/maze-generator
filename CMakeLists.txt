@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 
 project(maze-generator)
 
-add_executable(${PROJECT_NAME} "src/main.cpp" "src/maze.h" "src/maze.cpp" "src/maze_generators/maze_generator.h" "src/maze_generators/maze_generator.cpp" "src/maze_generators/prim_maze_generator.h" "src/maze_generators/prim_maze_generator.cpp" "src/util.h"  "src/util.cpp" "src/maze_generators/dfs_maze_generator.h" "src/maze_generators/dfs_maze_generator.cpp")
+add_executable(${PROJECT_NAME} "src/main.cpp" "src/maze.h" "src/maze.cpp" "src/maze_generators/maze_generator.h" "src/maze_generators/maze_generator.cpp" "src/maze_generators/prim_maze_generator.h" "src/maze_generators/prim_maze_generator.cpp" "src/util.h"  "src/util.cpp" "src/maze_generators/dfs_maze_generator.h" "src/maze_generators/dfs_maze_generator.cpp" "src/maze_generators/wilson_maze_generator.h" "src/maze_generators/wilson_maze_generator.cpp")
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 target_compile_options(${PROJECT_NAME} PUBLIC

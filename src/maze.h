@@ -19,6 +19,7 @@ public:
 
 	int GetWidth() const;
 	int GetHeight() const;
+
 	const Cell& GetCell(int i) const;
 	const std::vector<Cell>& GetCells() const;
 	std::vector<int> GetNeighbors(int i) const;
