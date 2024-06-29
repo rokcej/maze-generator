@@ -4,6 +4,27 @@
 #include "maze_generators/wilson_maze_generator.h"
 #include "raylib.h"
 
+void DrawMaze(const Maze& maze);
+
+int main() {
+	constexpr int maze_width = 16;
+	constexpr int maze_height = 16;
+
+	// const Maze maze = PrimMazeGenerator(maze_width, maze_height).Generate();
+	// const Maze maze = DfsMazeGenerator(maze_width, maze_height).Generate();
+	const Maze maze = WilsonMazeGenerator(maze_width, maze_height).Generate();
+
+	InitWindow(512, 512, "Maze Generator");
+	while (!WindowShouldClose()) {
+		BeginDrawing();
+		DrawMaze(maze);
+		EndDrawing();
+	}
+	CloseWindow();
+
+	return 0;
+}
+
 void DrawMaze(const Maze& maze) {
 	// Configuration
 	constexpr Color path_color{ 240, 240, 240, 255 };
@@ -45,23 +66,4 @@ void DrawMaze(const Maze& maze) {
 			);
 		}
 	}
-}
-
-int main() {
-	constexpr int maze_width = 16;
-	constexpr int maze_height = 16;
-
-	// const Maze maze = PrimMazeGenerator(maze_width, maze_height).Generate();
-	// const Maze maze = DfsMazeGenerator(maze_width, maze_height).Generate();
-	const Maze maze = WilsonMazeGenerator(maze_width, maze_height).Generate();
-
-	InitWindow(512, 512, "Maze Generator");
-	while (!WindowShouldClose()) {
-		BeginDrawing();
-		DrawMaze(maze);
-		EndDrawing();
-	}
-	CloseWindow();
-
-	return 0;
 }
